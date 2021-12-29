@@ -1,0 +1,26 @@
+Все размещения без повторений с 4 элементами по 3
+Алфавит: {a, b, c, d, }
+abc
+abd
+acb
+acd
+adb
+adc
+bac
+bad
+bca
+bcd
+bda
+bdc
+cab
+cad
+cba
+cbd
+cda
+cdb
+dab
+dac
+dba
+dbc
+dca
+dcb
