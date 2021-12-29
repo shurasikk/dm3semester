@@ -98,7 +98,6 @@ public class Permutations : CombObj
         return true;
     }
 }
-
 public class PermNoRep : CombObj
 {
     public PermNoRep(int n, int k): base(n,k)
@@ -142,6 +141,51 @@ public class PermNoRep : CombObj
         return true;
     }
 }
+public class Combinations : CombObj
+{
+    public Combinations(int n, int k) :base(n,k)
+    {
+        this.n = n;
+        this.k = k;
+        obj = new int[k];
+        alphabet = new char[n];
+    }
+    public bool NextComb(int k)
+    {
+        for (int i = k - 1; i >= 0; i--)
+            if (obj[i] < this.n - k + i)
+            {
+                obj[i]++;
+                for (int j = i + 1; j < k; j++)
+                    obj[j] = obj[j - 1] + 1;
+                return true;
+            }
+        return false;
+    }
+}
+public class CombWithRep: CombObj
+{
+    public CombWithRep(int n, int k) : base(n, k)
+    {
+        this.n = n;
+        this.k = k;
+        obj = new int[k];
+        alphabet = new char[n];
+    }
+    public bool NextCWR()
+    {
+        int j = this.k - 1;
+        while (j >= 0 && obj[j] == this.n - 1) j--;
+        if (j < 0) return false;
+        if (obj[j] >= this.n - 1)
+            j--;
+        obj[j]++;
+        if (j == this.k - 1) return true;
+        for (int k = j + 1; k < this.k; k++)
+            obj[k] = obj[j];
+        return true;
+    }
+}
 
 namespace dm1
 {
@@ -156,6 +200,9 @@ namespace dm1
             PermWithRep permwithrep_obj = new PermWithRep(n, k);
             Permutations permut_obj = new Permutations(n, n);
             PermNoRep pnr_obj = new PermNoRep(n, k);
+            Combinations subset = new Combinations(n, n);
+            Combinations combinations = new Combinations(n, k);
+            CombWithRep cwr = new CombWithRep(n, k);
             for(int i=0; i<n; i++)
             {
                 Console.WriteLine("Введите символ алфавита:");
@@ -163,6 +210,9 @@ namespace dm1
                 permwithrep_obj.SetAlphabet(a,i);
                 permut_obj.SetAlphabet(a, i);
                 pnr_obj.SetAlphabet(a, i);
+                subset.SetAlphabet(a, i);
+                combinations.SetAlphabet(a, i);
+                cwr.SetAlphabet(a, i);
             }
             //Построение размещений с повторениями по k элементов
             for(int i=0; i<k; i++)
@@ -246,6 +296,90 @@ namespace dm1
             }
             countsPNR.Close();
             //Построение всех подмножеств
+            StreamWriter countsSubst = new StreamWriter(@"C:\Users\Asus\Documents\GitHub\dm3semester\dm1\dm1\task4.txt");
+            countsSubst.WriteLine("Все подмножества множества с {0} элементами ", n);
+            countsSubst.Write("Алфавит: {");
+            for (int i = 0; i < n; i++)
+            {
+                countsSubst.Write(subset.alphabet[i] + ", ");
+            }
+            countsSubst.Write("}\n");
+            for (int l = 0; l < n + 1; l++)
+            {
+                for (int i = 0; i < l; i++) 
+                {
+                    subset.obj[i] = i;
+                }
+                for (int i = 0; i < l; i++)
+                {
+                    countsSubst.Write(subset.alphabet[subset.obj[i]]);
+                }
+                countsSubst.WriteLine();
+                while (subset.NextComb(l))
+                {
+                    for (int i = 0; i < l; i++)
+                    {
+                        countsSubst.Write(subset.alphabet[subset.obj[i]]);
+                    }
+                    countsSubst.WriteLine();
+                }
+            }
+            countsSubst.Write("∅");//добавляем пустое множество
+            countsSubst.Close();
+            //Построить все сочетания по k элементов.
+            StreamWriter countsComb = new StreamWriter(@"C:\Users\Asus\Documents\GitHub\dm3semester\dm1\dm1\task5.txt");
+            countsComb.WriteLine("Все сочетания из {0} элементов по {1} ", n, k);
+            countsComb.Write("Алфавит: {");
+            for (int i = 0; i < n; i++)
+            {
+                countsComb.Write(subset.alphabet[i] + ", ");
+            }
+            countsComb.Write("}\n");
+            for (int i = 0; i < k; i++) 
+            {
+                combinations.obj[i] = i;
+            }
+            for (int i = 0; i < k; i++)
+            {
+                countsComb.Write(combinations.alphabet[combinations.obj[i]]);
+            }
+            countsComb.WriteLine();
+            while (combinations.NextComb(combinations.k)) 
+            {
+                for (int i = 0; i < k; i++)
+                {
+                    countsComb.Write(combinations.alphabet[combinations.obj[i]]);
+                }
+                countsComb.WriteLine();
+            }
+            countsComb.Close();
+            //Построить все сочетания с повторениями.
+            StreamWriter countscwr = new StreamWriter(@"C:\Users\Asus\Documents\GitHub\dm3semester\dm1\dm1\task6.txt");
+            countscwr.WriteLine("Все сочетания с повторениями из {0} элементов по {1} ", n, k);
+            countscwr.Write("Алфавит: {");
+            for (int i = 0; i < n; i++)
+            {
+                countscwr.Write(subset.alphabet[i] + ", ");
+            }
+            countscwr.Write("}\n");
+            for(int i=0; i<k; i++)
+            {
+                cwr.obj[i] = 0;
+            }
+            for (int i = 0; i < k; i++)
+            {
+                countscwr.Write(cwr.alphabet[cwr.obj[i]]);
+            }
+            countscwr.WriteLine();
+            while(cwr.NextCWR())
+            {
+                for (int i = 0; i < k; i++)
+                {
+                    countscwr.Write(cwr.alphabet[cwr.obj[i]]);
+                }
+                countscwr.WriteLine();
+            }
+            countscwr.Close();
         }
     }
 }

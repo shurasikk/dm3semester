@@ -1,0 +1,22 @@
+Все сочетания с повторениями из 4 элементов по 3 
+Алфавит: {a, b, c, d, }
+aaa
+aab
+aac
+aad
+abb
+abc
+abd
+acc
+acd
+add
+bbb
+bbc
+bbd
+bcc
+bcd
+bdd
+ccc
+ccd
+cdd
+ddd
