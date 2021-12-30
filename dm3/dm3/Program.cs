@@ -192,7 +192,7 @@ namespace dm3
     {
         static void Main(string[] args)
         {
-            //3.1
+            //3.1, здесь выбираем букву для повторения, поэтому ответ 3600
             PermNoRep pnr = new PermNoRep(6, 3);
             pnr.alphabet[0] = 'a';
             pnr.alphabet[1] = 'b';
@@ -262,7 +262,7 @@ namespace dm3
                 } while (comb.NextComb(2));
             }
             sw.Close();
-            //3.2
+            //3.2, здесь уже выбираем 2 буквы
             PermNoRep pnr2 = new PermNoRep(6, 2);
             Combinations choose_letter = new Combinations(6, 2);
             Combinations places1 = new Combinations(6, 2);

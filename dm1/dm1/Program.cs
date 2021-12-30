@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-public class CombObj
+public class CombObj //общий комбинаторный объект - родительский класс
 {
     public int[] obj;
     public int n;
@@ -26,7 +26,7 @@ public class CombObj
     }
 }
 
-public class PermWithRep : CombObj
+public class PermWithRep : CombObj //размещения с повторениями
 {
     public PermWithRep(int n, int k): base(n,k)
     {
@@ -60,7 +60,7 @@ public class PermWithRep : CombObj
         return true;
     }
 }
-public class Permutations : CombObj
+public class Permutations : CombObj //перестановки
 {
     public Permutations(int n, int k) : base(n, k)
     {
@@ -98,7 +98,7 @@ public class Permutations : CombObj
         return true;
     }
 }
-public class PermNoRep : CombObj
+public class PermNoRep : CombObj //размещения без повторений
 {
     public PermNoRep(int n, int k): base(n,k)
     {
@@ -141,7 +141,7 @@ public class PermNoRep : CombObj
         return true;
     }
 }
-public class Combinations : CombObj
+public class Combinations : CombObj //сочетания
 {
     public Combinations(int n, int k) :base(n,k)
     {
@@ -163,7 +163,7 @@ public class Combinations : CombObj
         return false;
     }
 }
-public class CombWithRep: CombObj
+public class CombWithRep: CombObj //сочетания с повторениями
 {
     public CombWithRep(int n, int k) : base(n, k)
     {

@@ -132,7 +132,7 @@ namespace dm2
     {
         static void Main(string[] args)
         { 
-            //2.1
+            //2.1, выбираем места для буквы а, потом размещения с повторениями 
             PermWithRep pwr = new PermWithRep(5, 3);
             pwr.alphabet[0] = 'b';
             pwr.alphabet[1] = 'c';
@@ -176,7 +176,7 @@ namespace dm2
             } while (comb.NextComb(2));
             t1.Write("fffaa");
             t1.Close();
-            //2.2
+            //2.2, также выбираем позиции для а, но размещения теперь без повторений
             PermNoRep pnr = new PermNoRep(5, 3);
             pnr.alphabet[0] = 'b';
             pnr.alphabet[1] = 'c';
